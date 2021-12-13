@@ -75,6 +75,217 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-算法记录" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/doc/2021/12/13/%E7%AE%97%E6%B3%95%E8%AE%B0%E5%BD%95/" class="article-date">
+  <time class="dt-published" datetime="2021-12-13T11:54:21.000Z" itemprop="datePublished">2021-12-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/doc/2021/12/13/%E7%AE%97%E6%B3%95%E8%AE%B0%E5%BD%95/">算法记录</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <ol>
+<li><p>用两个栈实现队列</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> CQueue = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.stack1 = <span class="keyword">new</span> Stack();</span><br><span class="line">    <span class="built_in">this</span>.stack2 = <span class="keyword">new</span> Stack();</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/** </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number&#125;</span> <span class="variable">value</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;void&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">CQueue.prototype.appendTail = <span class="function"><span class="keyword">function</span>(<span class="params">value</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.stack1.pushStack(value);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;number&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">CQueue.prototype.deleteHead = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">this</span>.stack2.stack.length) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.stack2.popStack();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">while</span>(<span class="built_in">this</span>.stack1.stack.length) &#123;</span><br><span class="line">            <span class="built_in">this</span>.stack2.pushStack(<span class="built_in">this</span>.stack1.popStack());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">this</span>.stack2.stack.length) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">this</span>.stack2.popStack();</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Your CQueue object will be instantiated and called as such:</span></span><br><span class="line"><span class="comment"> * var obj = new CQueue()</span></span><br><span class="line"><span class="comment"> * obj.appendTail(value)</span></span><br><span class="line"><span class="comment"> * var param_2 = obj.deleteHead()</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Stack</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.stack = [];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Stack.prototype.pushStack = <span class="function"><span class="keyword">function</span>(<span class="params">val</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> len = <span class="built_in">this</span>.stack.length;</span><br><span class="line">    <span class="built_in">this</span>.stack[len] = val;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Stack.prototype.popStack = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">this</span>.stack.length === <span class="number">0</span>) <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">const</span> pop = <span class="built_in">this</span>.stack[<span class="number">0</span>];</span><br><span class="line">    <span class="built_in">this</span>.stack.splice(<span class="number">0</span>, <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">return</span> pop;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>斐波那契数列</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number&#125;</span> <span class="variable">n</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;number&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> fib = <span class="function"><span class="keyword">function</span>(<span class="params">n</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> a = <span class="number">0</span>,</span><br><span class="line">        b = <span class="number">1</span>,</span><br><span class="line">        sum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        sum = (a + b) % (<span class="number">1e9</span> + <span class="number">7</span>);</span><br><span class="line">        a = b;</span><br><span class="line">        b = sum;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> a;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
+<li><p>数组中重复的数字</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number[]&#125;</span> <span class="variable">nums</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;number&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> findRepeatNumber = <span class="function"><span class="keyword">function</span>(<span class="params">nums</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(i &lt; nums.length) &#123;</span><br><span class="line">        <span class="keyword">if</span>(i === nums[i]) &#123;</span><br><span class="line">            i++;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(nums[nums[i]] === nums[i]) <span class="keyword">return</span> nums[i];</span><br><span class="line">        <span class="keyword">let</span> temp = nums[i];</span><br><span class="line">        nums[i] = nums[temp];</span><br><span class="line">        nums[temp] = temp;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
+<li><p>二维数组中的查找</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number[][]&#125;</span> <span class="variable">matrix</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number&#125;</span> <span class="variable">target</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;boolean&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> findNumberIn2DArray = <span class="function"><span class="keyword">function</span>(<span class="params">matrix, target</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!matrix.length || !matrix[<span class="number">0</span>].length) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">const</span> rows = matrix.length;</span><br><span class="line">    <span class="keyword">const</span> cols = matrix[<span class="number">0</span>].length;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> j = cols - <span class="number">1</span>, i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(j &gt;= <span class="number">0</span> &amp;&amp; i &lt; rows) &#123;</span><br><span class="line">        <span class="keyword">if</span> (matrix[i][j] === target) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (matrix[i][j] &lt; target) i++;</span><br><span class="line">        <span class="keyword">else</span> j--;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
+<li><p>青蛙跳台阶 动态规划</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number&#125;</span> <span class="variable">n</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;number&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> numWays = <span class="function"><span class="keyword">function</span>(<span class="params">n</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> a = <span class="number">1</span>, b = <span class="number">1</span>, sum = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">1</span>; i &lt; n; i++) &#123;</span><br><span class="line">        sum = (a + b) % (<span class="number">1e9</span> + <span class="number">7</span>);</span><br><span class="line">        a = b;</span><br><span class="line">        b = sum;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
+<li><p>旋转数组的最小值</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number[]&#125;</span> <span class="variable">numbers</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;number&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> minArray = <span class="function"><span class="keyword">function</span>(<span class="params">numbers</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> low = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">let</span> high = numbers.length - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(low &lt; high) &#123;</span><br><span class="line">        <span class="keyword">let</span> middle = <span class="built_in">parseInt</span>((low + high) / <span class="number">2</span>);</span><br><span class="line">        <span class="keyword">if</span> (numbers[middle] &gt; numbers[high]) &#123;</span><br><span class="line">            low = middle + <span class="number">1</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (numbers[middle] &lt; numbers[high]) &#123;</span><br><span class="line">            high = middle;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123; </span><br><span class="line">            high--;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> numbers[low];</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://lllanlll.github.io/doc/2021/12/13/%E7%AE%97%E6%B3%95%E8%AE%B0%E5%BD%95/" data-id="ckx4uz9xn0001t35n02k45kw3" data-title="算法记录" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/doc/tags/algorithms/" rel="tag">algorithms</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-复习方向" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/doc/2021/12/13/%E5%A4%8D%E4%B9%A0%E6%96%B9%E5%90%91/" class="article-date">
+  <time class="dt-published" datetime="2021-12-13T02:49:43.000Z" itemprop="datePublished">2021-12-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/doc/2021/12/13/%E5%A4%8D%E4%B9%A0%E6%96%B9%E5%90%91/">复习方向</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <ul>
+<li><strong>vue命令式封装 Toast</strong><ul>
+<li>vue.extend 源码<ul>
+<li>通过Vue的extend方法，生成了组件的构造函数，new实例的时候会调用Vue._init初始化，然后在实例上手动调用$mount挂载出组件实例，最后通过appendChild方法将组件实例的$el真实dom添加到body上。</li>
+<li>传入Toast的参数在挂载dom后赋值给组件实例完成展示</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>vue组件封装 Popup</strong><ul>
+<li>实现细节<ul>
+<li>要点：ui居中，close按钮和点击蒙层关闭处理（通过self修饰符区分close和蒙层）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>vue响应式原理（看视频，调试源码）</strong><ul>
+<li>响应式对象：在_init的时候调用initState，通过initProps和initData分别做响应式处理，其中先通过proxy方法将_data代理到this的get/set上，使平常使用数据时不用this.data访问而是直接this访问即可。proxy之后通过observe方法创建响应式对象，在defineReactive中通过使用递归对子对象分别调用<code>observe</code>来实现深度对象的响应式处理，并且通过<code>def</code>方法将<code>__ob__</code>响应式标记通过不可枚举形式添加到observer对象上，若是根Vue则无<code>__ob__</code></li>
+<li>依赖收集：get时通过<code>dep.depend</code>收集变量更改需要执行的函数，set时通过<code>dep.notify</code>执行之前收集的函数，Vue中实际就是dep收集，通过watcher的构造函数中的get去执行getter，<code>updateComponent</code>就是在<code>getter</code>阶段执行的，即demo中autorun函数中的update</li>
+<li>双向绑定demo<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isObject</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">typeof</span> obj === <span class="string">&#x27;object&#x27;</span></span><br><span class="line">        &amp;&amp; !<span class="built_in">Array</span>.isArray(obj)</span><br><span class="line">        &amp;&amp; obj !== <span class="literal">null</span></span><br><span class="line">        &amp;&amp; obj !== <span class="literal">undefined</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">observe</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!isObject(obj)) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">Object</span>.keys(obj).forEach(<span class="function"><span class="params">key</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> internalValue = obj[key]</span><br><span class="line">        <span class="keyword">let</span> dep = <span class="keyword">new</span> Dep()</span><br><span class="line">        <span class="built_in">Object</span>.defineProperty(obj, key, &#123;</span><br><span class="line">            <span class="function"><span class="title">get</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">                dep.depend()</span><br><span class="line">                <span class="keyword">return</span> internalValue</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="function"><span class="title">set</span>(<span class="params">newValue</span>)</span> &#123;</span><br><span class="line">                <span class="keyword">const</span> isChanged = internalValue !== newValue</span><br><span class="line">                <span class="keyword">if</span> (isChanged) &#123;</span><br><span class="line">                    internalValue = newValue</span><br><span class="line">                    dep.notify()</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Dep</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="title">constructor</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.subscribers = <span class="keyword">new</span> <span class="built_in">Set</span>()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="title">depend</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (activeUpdate) &#123;</span><br><span class="line">            <span class="comment">// register the current active update as a subscriber</span></span><br><span class="line">            <span class="built_in">this</span>.subscribers.add(activeUpdate)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="title">notify</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="comment">// run all subscriber functions</span></span><br><span class="line">        <span class="built_in">this</span>.subscribers.forEach(<span class="function"><span class="params">subscriber</span> =&gt;</span> subscriber())</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> activeUpdate</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">autorun</span>(<span class="params">update</span>) </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">wrappedUpdate</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        activeUpdate = wrappedUpdate</span><br><span class="line">        update()</span><br><span class="line">        activeUpdate = <span class="literal">null</span></span><br><span class="line">    &#125;</span><br><span class="line">    wrappedUpdate()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> state = &#123;</span><br><span class="line">    <span class="attr">count</span>: <span class="number">0</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">observe(state)</span><br><span class="line"></span><br><span class="line">autorun(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;state.count is: &#x27;</span> + state.count)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">state.count++</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>vue虚拟dom<ul>
+<li>diff、patch细节</li>
+<li>v-for中key的作用</li>
+</ul>
+</li>
+<li>slot 和 scoped-slot 区别？</li>
+<li>provide inject</li>
+<li>vuex / bus</li>
+<li>CompositionAPI 细节</li>
+<li>useFetch封装实现</li>
+<li>跨域<ul>
+<li>cors<ul>
+<li>普通请求/预检请求<a target="_blank" rel="noopener" href="https://github.com/amandakelake/blog/issues/62">详情</a></li>
+</ul>
+</li>
+<li>jsonp</li>
+<li>postMessage</li>
+</ul>
+</li>
+<li>手写js<ul>
+<li>简单promise、all、race、any</li>
+<li>防抖节流</li>
+<li>instance</li>
+<li>new</li>
+<li>深拷贝</li>
+<li>深度比较多级对象是否相等</li>
+</ul>
+</li>
+<li>js垃圾回收</li>
+<li>事件捕获、冒泡，vue修饰符</li>
+<li>curry化手写</li>
+<li>CSS 看写的文档</li>
+<li>grid 使用方式</li>
+<li>Grafana <ul>
+<li>是什么</li>
+<li>简单配置</li>
+</ul>
+</li>
+<li>HTTP1.0/2.0<ul>
+<li>缓存：强缓存、协商缓存</li>
+<li>cache-control具体值作用</li>
+<li>header参数</li>
+<li>HTTPS<ul>
+<li>对称加密，非对称加密</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>TCP<ul>
+<li>三次握手</li>
+<li>四次挥手</li>
+</ul>
+</li>
+<li>UDP</li>
+<li>线程进程</li>
+<li>输入url到显示的过程</li>
+<li>TypeScript<ul>
+<li>枚举、类型type、interface</li>
+</ul>
+</li>
+<li>设计模式<ul>
+<li>发布订阅</li>
+<li>单例</li>
+<li>工厂</li>
+</ul>
+</li>
+<li>算法<ul>
+<li>剑指offer</li>
+<li>排序<ul>
+<li>快排、插入、冒泡、堆排</li>
+</ul>
+</li>
+<li>岛屿问题</li>
+<li>只交换一次使字符串相等</li>
+<li>合并有序列表？</li>
+<li>找出第一个不重复的字符串</li>
+<li>全排列</li>
+<li>最大回文子串（动态规划）</li>
+<li>括号匹配</li>
+<li>二叉搜索树<ul>
+<li>找到离key最近的两个节点</li>
+</ul>
+</li>
+<li>二叉树<ul>
+<li>树的子结构</li>
+<li>二叉树中和为某一值的路径</li>
+</ul>
+</li>
+<li>数组前k个最小的值</li>
+<li>数组第k大的数</li>
+<li>斐波那契</li>
+<li>用数组存储的树，查找树中元素并输出路径<a target="_blank" rel="noopener" href="https://www.nowcoder.com/discuss/783864?source_id=discuss_experience_nctrack&channel=-1">地址</a></li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://lllanlll.github.io/doc/2021/12/13/%E5%A4%8D%E4%B9%A0%E6%96%B9%E5%90%91/" data-id="ckx4uz9xq0004t35n7my18psa" data-title="复习方向" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/doc/tags/review/" rel="tag">review</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-vue-components-register" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/doc/2021/12/08/vue-components-register/" class="article-date">
@@ -114,7 +325,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lllanlll.github.io/doc/2021/12/08/vue-components-register/" data-id="ckx033xq80000r05nff4d9ti3" data-title="vue components register" class="article-share-link">Share</a>
+      <a data-url="https://lllanlll.github.io/doc/2021/12/08/vue-components-register/" data-id="ckx4uz9xp0003t35n41pa8sf8" data-title="vue components register" class="article-share-link">Share</a>
       
       
       
@@ -172,7 +383,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://lllanlll.github.io/doc/2021/12/07/curry-funciton/" data-id="ckx033xqb0001r05na6gye400" data-title="curry funciton" class="article-share-link">Share</a>
+      <a data-url="https://lllanlll.github.io/doc/2021/12/07/curry-funciton/" data-id="ckx4uz9xk0000t35ngqr26eni" data-title="curry funciton" class="article-share-link">Share</a>
       
       
       
@@ -199,7 +410,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/doc/tags/js/" rel="tag">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/doc/tags/utils/" rel="tag">utils</a></li><li class="tag-list-item"><a class="tag-list-link" href="/doc/tags/vue/" rel="tag">vue</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/doc/tags/algorithms/" rel="tag">algorithms</a></li><li class="tag-list-item"><a class="tag-list-link" href="/doc/tags/js/" rel="tag">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/doc/tags/review/" rel="tag">review</a></li><li class="tag-list-item"><a class="tag-list-link" href="/doc/tags/utils/" rel="tag">utils</a></li><li class="tag-list-item"><a class="tag-list-link" href="/doc/tags/vue/" rel="tag">vue</a></li></ul>
     </div>
   </div>
 
@@ -209,7 +420,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/doc/tags/js/" style="font-size: 10px;">js</a> <a href="/doc/tags/utils/" style="font-size: 10px;">utils</a> <a href="/doc/tags/vue/" style="font-size: 10px;">vue</a>
+      <a href="/doc/tags/algorithms/" style="font-size: 10px;">algorithms</a> <a href="/doc/tags/js/" style="font-size: 10px;">js</a> <a href="/doc/tags/review/" style="font-size: 10px;">review</a> <a href="/doc/tags/utils/" style="font-size: 10px;">utils</a> <a href="/doc/tags/vue/" style="font-size: 10px;">vue</a>
     </div>
   </div>
 
@@ -229,6 +440,14 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/doc/2021/12/13/%E7%AE%97%E6%B3%95%E8%AE%B0%E5%BD%95/">算法记录</a>
+          </li>
+        
+          <li>
+            <a href="/doc/2021/12/13/%E5%A4%8D%E4%B9%A0%E6%96%B9%E5%90%91/">复习方向</a>
+          </li>
         
           <li>
             <a href="/doc/2021/12/08/vue-components-register/">vue components register</a>
